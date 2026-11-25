@@ -1,0 +1,4 @@
+# No nodejs_compat flag: wrangler bundles the SDK's browser build, as in aws/aws-sdk-js-v3#7375.
+name = "xml-domparser-fallback-repro"
+main = "worker.js"
+compatibility_date = "2026-11-01"

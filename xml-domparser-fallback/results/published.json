@@ -1,0 +1,275 @@
+{
+  "xmlBuilder": "3.972.43 (published)",
+  "date": "2026-11-25",
+  "runs": {
+    "stub/workerd": {
+      "runtime": {
+        "hasDOMParser": false
+      },
+      "ok": false,
+      "results": [
+        {
+          "call": "sts:GetCallerIdentity",
+          "ok": false,
+          "error": {
+            "name": "ReferenceError",
+            "message": "DOMParser is not defined",
+            "stack": [
+              "ReferenceError: DOMParser is not defined",
+              "    at parseXML (file://./runtimes/workerd/.wrangler/tmp/dev-cZBGeR/worker.js:10370:5)",
+              "    at XmlShapeDeserializer.parseXml (file://./runtimes/workerd/.wrangler/tmp/dev-cZBGeR/worker.js:10603:21)"
+            ]
+          }
+        },
+        {
+          "call": "s3:ListBuckets",
+          "ok": false,
+          "error": {
+            "name": "ReferenceError",
+            "message": "DOMParser is not defined",
+            "stack": [
+              "ReferenceError: DOMParser is not defined",
+              "    at parseXML (file://./runtimes/workerd/.wrangler/tmp/dev-cZBGeR/worker.js:10370:5)",
+              "    at XmlShapeDeserializer.parseXml (file://./runtimes/workerd/.wrangler/tmp/dev-cZBGeR/worker.js:10603:21)"
+            ]
+          }
+        },
+        {
+          "call": "s3:ListObjectsV2",
+          "ok": false,
+          "error": {
+            "name": "ReferenceError",
+            "message": "DOMParser is not defined",
+            "stack": [
+              "ReferenceError: DOMParser is not defined",
+              "    at parseXML (file://./runtimes/workerd/.wrangler/tmp/dev-cZBGeR/worker.js:10370:5)",
+              "    at XmlShapeDeserializer.parseXml (file://./runtimes/workerd/.wrangler/tmp/dev-cZBGeR/worker.js:10603:21)"
+            ]
+          }
+        }
+      ]
+    },
+    "stub/web": {
+      "browser": "Chromium 158.0.8127.88",
+      "window": {
+        "runtime": {
+          "hasDOMParser": true
+        },
+        "ok": true,
+        "results": [
+          {
+            "call": "sts:GetCallerIdentity",
+            "ok": true,
+            "result": {
+              "Account": "111122223333",
+              "Arn": "arn:aws:sts::111122223333:assumed-role/Stub&Role/session",
+              "UserId": "AROAEXAMPLEEXAMPLE:session"
+            }
+          },
+          {
+            "call": "s3:ListBuckets",
+            "ok": true,
+            "result": {
+              "Owner": {
+                "DisplayName": "stub & owner",
+                "ID": "stub-owner-id"
+              },
+              "Buckets": [
+                "stub-bucket",
+                "second-bucket"
+              ]
+            }
+          },
+          {
+            "call": "s3:ListObjectsV2",
+            "ok": true,
+            "result": {
+              "Name": "stub-bucket",
+              "KeyCount": 3,
+              "Keys": [
+                "tom & jerry <cartoons>.txt",
+                "café-é.png",
+                "quote-\"apos-'.json"
+              ]
+            }
+          }
+        ]
+      },
+      "worker": {
+        "runtime": {
+          "hasDOMParser": false
+        },
+        "ok": false,
+        "results": [
+          {
+            "call": "sts:GetCallerIdentity",
+            "ok": false,
+            "error": {
+              "name": "ReferenceError",
+              "message": "DOMParser is not defined",
+              "stack": [
+                "ReferenceError: DOMParser is not defined",
+                "    at parseXML (http://127.0.0.1:<port>/__repro/web-worker.bundle.js:9758:5)",
+                "    at XmlShapeDeserializer.parseXml (http://127.0.0.1:<port>/__repro/web-worker.bundle.js:9977:21)"
+              ]
+            }
+          },
+          {
+            "call": "s3:ListBuckets",
+            "ok": false,
+            "error": {
+              "name": "ReferenceError",
+              "message": "DOMParser is not defined",
+              "stack": [
+                "ReferenceError: DOMParser is not defined",
+                "    at parseXML (http://127.0.0.1:<port>/__repro/web-worker.bundle.js:9758:5)",
+                "    at XmlShapeDeserializer.parseXml (http://127.0.0.1:<port>/__repro/web-worker.bundle.js:9977:21)"
+              ]
+            }
+          },
+          {
+            "call": "s3:ListObjectsV2",
+            "ok": false,
+            "error": {
+              "name": "ReferenceError",
+              "message": "DOMParser is not defined",
+              "stack": [
+                "ReferenceError: DOMParser is not defined",
+                "    at parseXML (http://127.0.0.1:<port>/__repro/web-worker.bundle.js:9758:5)",
+                "    at XmlShapeDeserializer.parseXml (http://127.0.0.1:<port>/__repro/web-worker.bundle.js:9977:21)"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "stub/wasm": {
+      "runtime": {
+        "hasDOMParser": false
+      },
+      "ok": false,
+      "results": [
+        {
+          "call": "sts:GetCallerIdentity",
+          "ok": false,
+          "error": {
+            "name": "ReferenceError",
+            "message": "DOMParser is not defined",
+            "stack": [
+              "parseXML@dist/wasm/guest.bundle.js:9761:5",
+              "parseXml@dist/wasm/guest.bundle.js:9980:21",
+              "read@dist/wasm/guest.bundle.js:9889:31"
+            ]
+          }
+        },
+        {
+          "call": "s3:ListBuckets",
+          "ok": false,
+          "error": {
+            "name": "ReferenceError",
+            "message": "DOMParser is not defined",
+            "stack": [
+              "parseXML@dist/wasm/guest.bundle.js:9761:5",
+              "parseXml@dist/wasm/guest.bundle.js:9980:21",
+              "read@dist/wasm/guest.bundle.js:9889:31"
+            ]
+          }
+        },
+        {
+          "call": "s3:ListObjectsV2",
+          "ok": false,
+          "error": {
+            "name": "ReferenceError",
+            "message": "DOMParser is not defined",
+            "stack": [
+              "parseXML@dist/wasm/guest.bundle.js:9761:5",
+              "parseXml@dist/wasm/guest.bundle.js:9980:21",
+              "read@dist/wasm/guest.bundle.js:9889:31"
+            ]
+          }
+        }
+      ]
+    },
+    "aws/workerd": {
+      "runtime": {
+        "hasDOMParser": false
+      },
+      "ok": false,
+      "results": [
+        {
+          "call": "sts:GetCallerIdentity",
+          "ok": false,
+          "error": {
+            "name": "ReferenceError",
+            "message": "DOMParser is not defined",
+            "stack": [
+              "ReferenceError: DOMParser is not defined",
+              "    at parseXML (file://./runtimes/workerd/.wrangler/tmp/dev-c72Agz/worker.js:10370:5)",
+              "    at XmlShapeDeserializer.parseXml (file://./runtimes/workerd/.wrangler/tmp/dev-c72Agz/worker.js:10603:21)"
+            ]
+          }
+        },
+        {
+          "call": "s3:ListBuckets",
+          "ok": false,
+          "error": {
+            "name": "ReferenceError",
+            "message": "DOMParser is not defined",
+            "stack": [
+              "ReferenceError: DOMParser is not defined",
+              "    at parseXML (file://./runtimes/workerd/.wrangler/tmp/dev-c72Agz/worker.js:10370:5)",
+              "    at XmlShapeDeserializer.parseXml (file://./runtimes/workerd/.wrangler/tmp/dev-c72Agz/worker.js:10603:21)"
+            ]
+          }
+        },
+        {
+          "call": "s3:ListObjectsV2",
+          "ok": false,
+          "skipped": "needs a bucket name from ListBuckets"
+        }
+      ]
+    },
+    "aws/web": {
+      "skipped": "browser page is only run against the stub (same-origin, no CORS setup)"
+    },
+    "aws/wasm": {
+      "runtime": {
+        "hasDOMParser": false
+      },
+      "ok": false,
+      "results": [
+        {
+          "call": "sts:GetCallerIdentity",
+          "ok": false,
+          "error": {
+            "name": "ReferenceError",
+            "message": "DOMParser is not defined",
+            "stack": [
+              "parseXML@dist/wasm/guest.bundle.js:9761:5",
+              "parseXml@dist/wasm/guest.bundle.js:9980:21",
+              "read@dist/wasm/guest.bundle.js:9889:31"
+            ]
+          }
+        },
+        {
+          "call": "s3:ListBuckets",
+          "ok": false,
+          "error": {
+            "name": "ReferenceError",
+            "message": "DOMParser is not defined",
+            "stack": [
+              "parseXML@dist/wasm/guest.bundle.js:9761:5",
+              "parseXml@dist/wasm/guest.bundle.js:9980:21",
+              "read@dist/wasm/guest.bundle.js:9889:31"
+            ]
+          }
+        },
+        {
+          "call": "s3:ListObjectsV2",
+          "ok": false,
+          "skipped": "needs a bucket name from ListBuckets"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,6 @@
+package local:xml-domparser-fallback-repro;
+
+world guest {
+  import wasi:cli/environment@0.2.10;
+  export wasi:http/incoming-handler@0.2.10;
+}

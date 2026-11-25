@@ -1,0 +1,22 @@
+{
+  "name": "xml-domparser-fallback-reproducer",
+  "private": true,
+  "type": "module",
+  "description": "Reproducer: @aws-sdk/xml-builder browser build throws ReferenceError: DOMParser is not defined in runtimes without DOMParser",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "stub": "node scripts/stub-server.mjs",
+    "repro": "node scripts/run.mjs"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "3.1177.0",
+    "@aws-sdk/client-sts": "3.1177.0"
+  },
+  "devDependencies": {
+    "@bytecodealliance/componentize-js": "0.23.0",
+    "@bytecodealliance/jco": "1.42.0",
+    "esbuild": "0.28.2",
+    "playwright-core": "1.65.1",
+    "wrangler": "4.168.0"
+  }
+}
