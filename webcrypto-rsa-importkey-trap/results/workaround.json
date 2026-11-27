@@ -1,0 +1,41 @@
+{
+  "toolchain": {
+    "componentizeJs": "0.23.0",
+    "mode": "workaround",
+    "debugBuild": false
+  },
+  "wasmtime": "wasmtime 51.0.0 (32656dc48 2026-11-20)",
+  "date": "2026-11-27",
+  "steps": {
+    "hmac": {
+      "exitCode": 0,
+      "ok": true,
+      "result": "secret key, sig 32 bytes"
+    },
+    "get-random-values": {
+      "exitCode": 0,
+      "ok": true,
+      "result": "16 bytes"
+    },
+    "rsa-jwk": {
+      "exitCode": 0,
+      "ok": true,
+      "result": "public key, verify true"
+    },
+    "ec-jwk": {
+      "exitCode": 0,
+      "ok": true,
+      "result": "public key, verify true"
+    },
+    "jwt-rs256": {
+      "exitCode": 0,
+      "ok": true,
+      "result": "sub user-1"
+    },
+    "generate-key": {
+      "exitCode": 0,
+      "ok": false,
+      "error": "TypeError: subtle.generateKey is not a function"
+    }
+  }
+}

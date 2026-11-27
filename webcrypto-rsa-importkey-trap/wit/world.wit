@@ -1,0 +1,5 @@
+package local:reproducer;
+
+world guest {
+  export run: func(step: string) -> string;
+}

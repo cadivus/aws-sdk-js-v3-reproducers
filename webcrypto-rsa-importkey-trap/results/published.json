@@ -1,0 +1,89 @@
+{
+  "toolchain": {
+    "componentizeJs": "0.23.0",
+    "mode": "published",
+    "debugBuild": false
+  },
+  "wasmtime": "wasmtime 51.0.0 (32656dc48 2026-11-20)",
+  "date": "2026-11-27",
+  "steps": {
+    "hmac": {
+      "exitCode": 0,
+      "ok": true,
+      "result": "secret key, sig 32 bytes"
+    },
+    "get-random-values": {
+      "exitCode": 0,
+      "ok": true,
+      "result": "16 bytes"
+    },
+    "rsa-jwk": {
+      "exitCode": 134,
+      "ok": false,
+      "trap": "wasm trap: wasm `unreachable` instruction executed",
+      "backtrace": [
+        "<unknown>!random_get",
+        "<unknown>!<wasm function 5088>",
+        "<unknown>!<wasm function 2299>",
+        "<unknown>!<wasm function 391>",
+        "<unknown>!<wasm function 393>",
+        "<unknown>!<wasm function 707>",
+        "<unknown>!<wasm function 3849>",
+        "<unknown>!<wasm function 1381>",
+        "<unknown>!<wasm function 5877>",
+        "<unknown>!<wasm function 5878>",
+        "<unknown>!<wasm function 5911>",
+        "<unknown>!<wasm function 5913>",
+        "<unknown>!<wasm function 5941>",
+        "<unknown>!<wasm function 6203>"
+      ]
+    },
+    "ec-jwk": {
+      "exitCode": 134,
+      "ok": false,
+      "trap": "wasm trap: wasm `unreachable` instruction executed",
+      "backtrace": [
+        "<unknown>!random_get",
+        "<unknown>!<wasm function 5088>",
+        "<unknown>!<wasm function 2299>",
+        "<unknown>!<wasm function 391>",
+        "<unknown>!<wasm function 393>",
+        "<unknown>!<wasm function 576>",
+        "<unknown>!<wasm function 575>",
+        "<unknown>!<wasm function 521>",
+        "<unknown>!<wasm function 512>",
+        "<unknown>!<wasm function 461>",
+        "<unknown>!<wasm function 3745>",
+        "<unknown>!<wasm function 1381>",
+        "<unknown>!<wasm function 5877>",
+        "<unknown>!<wasm function 5876>"
+      ]
+    },
+    "jwt-rs256": {
+      "exitCode": 134,
+      "ok": false,
+      "trap": "wasm trap: wasm `unreachable` instruction executed",
+      "backtrace": [
+        "<unknown>!random_get",
+        "<unknown>!<wasm function 5088>",
+        "<unknown>!<wasm function 2299>",
+        "<unknown>!<wasm function 391>",
+        "<unknown>!<wasm function 393>",
+        "<unknown>!<wasm function 707>",
+        "<unknown>!<wasm function 3849>",
+        "<unknown>!<wasm function 1381>",
+        "<unknown>!<wasm function 5877>",
+        "<unknown>!<wasm function 5878>",
+        "<unknown>!<wasm function 5911>",
+        "<unknown>!<wasm function 5913>",
+        "<unknown>!<wasm function 5941>",
+        "<unknown>!<wasm function 6203>"
+      ]
+    },
+    "generate-key": {
+      "exitCode": 0,
+      "ok": false,
+      "error": "TypeError: subtle.generateKey is not a function"
+    }
+  }
+}

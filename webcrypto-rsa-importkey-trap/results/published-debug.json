@@ -1,0 +1,89 @@
+{
+  "toolchain": {
+    "componentizeJs": "0.23.0",
+    "mode": "published",
+    "debugBuild": true
+  },
+  "wasmtime": "wasmtime 51.0.0 (32656dc48 2026-11-20)",
+  "date": "2026-11-27",
+  "steps": {
+    "hmac": {
+      "exitCode": 0,
+      "ok": true,
+      "result": "secret key, sig 32 bytes"
+    },
+    "get-random-values": {
+      "exitCode": 0,
+      "ok": true,
+      "result": "16 bytes"
+    },
+    "rsa-jwk": {
+      "exitCode": 134,
+      "ok": false,
+      "trap": "wasm trap: wasm `unreachable` instruction executed",
+      "backtrace": [
+        "starling-raw.wasm!random_get",
+        "starling-raw.wasm!arc4random_buf",
+        "starling-raw.wasm!RAND_priv_bytes_ex",
+        "starling-raw.wasm!bnrand",
+        "starling-raw.wasm!bnrand_range",
+        "starling-raw.wasm!BN_priv_rand_range_ex",
+        "starling-raw.wasm!ossl_bn_miller_rabin_is_prime",
+        "starling-raw.wasm!ossl_rsa_sp800_56b_check_public",
+        "starling-raw.wasm!ossl_rsa_validate_public",
+        "starling-raw.wasm!rsa_validate",
+        "starling-raw.wasm!evp_keymgmt_validate",
+        "starling-raw.wasm!try_provided_check",
+        "starling-raw.wasm!evp_pkey_public_check_combined",
+        "starling-raw.wasm!EVP_PKEY_public_check"
+      ]
+    },
+    "ec-jwk": {
+      "exitCode": 134,
+      "ok": false,
+      "trap": "wasm trap: wasm `unreachable` instruction executed",
+      "backtrace": [
+        "starling-raw.wasm!random_get",
+        "starling-raw.wasm!arc4random_buf",
+        "starling-raw.wasm!RAND_priv_bytes_ex",
+        "starling-raw.wasm!bnrand",
+        "starling-raw.wasm!bnrand_range",
+        "starling-raw.wasm!BN_priv_rand_range_ex",
+        "starling-raw.wasm!ossl_ec_GFp_simple_field_inv",
+        "starling-raw.wasm!ossl_ec_GFp_simple_points_make_affine",
+        "starling-raw.wasm!ossl_ec_wNAF_mul",
+        "starling-raw.wasm!EC_POINT_mul",
+        "starling-raw.wasm!ossl_ec_key_public_check",
+        "starling-raw.wasm!ec_validate",
+        "starling-raw.wasm!evp_keymgmt_validate",
+        "starling-raw.wasm!try_provided_check"
+      ]
+    },
+    "jwt-rs256": {
+      "exitCode": 134,
+      "ok": false,
+      "trap": "wasm trap: wasm `unreachable` instruction executed",
+      "backtrace": [
+        "starling-raw.wasm!random_get",
+        "starling-raw.wasm!arc4random_buf",
+        "starling-raw.wasm!RAND_priv_bytes_ex",
+        "starling-raw.wasm!bnrand",
+        "starling-raw.wasm!bnrand_range",
+        "starling-raw.wasm!BN_priv_rand_range_ex",
+        "starling-raw.wasm!ossl_bn_miller_rabin_is_prime",
+        "starling-raw.wasm!ossl_rsa_sp800_56b_check_public",
+        "starling-raw.wasm!ossl_rsa_validate_public",
+        "starling-raw.wasm!rsa_validate",
+        "starling-raw.wasm!evp_keymgmt_validate",
+        "starling-raw.wasm!try_provided_check",
+        "starling-raw.wasm!evp_pkey_public_check_combined",
+        "starling-raw.wasm!EVP_PKEY_public_check"
+      ]
+    },
+    "generate-key": {
+      "exitCode": 0,
+      "ok": false,
+      "error": "TypeError: subtle.generateKey is not a function"
+    }
+  }
+}

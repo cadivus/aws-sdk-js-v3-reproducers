@@ -1,0 +1,84 @@
+From 7140ec364acf3ffcd39305ff3a9a8fcbcf33e2ac Mon Sep 17 00:00:00 2001
+From: Jonas Greifenhain <jonasgre@amazon.de>
+Date: Fri, 27 Nov 2026 17:15:33 +0000
+Subject: [PATCH] fix(splicer): only stub preview1 random_get when random is
+ disabled
+
+The preview1 random_get import was always replaced with an unreachable
+stub, so OpenSSL entropy (RSA/EC public key validation during
+crypto.subtle.importKey) trapped the instance. Leave it to the preview1
+adapter, which maps it to wasi:random, unless 'random' is disabled.
+
+Fixes #334
+---
+ .../src/stub_wasi.rs                          |  4 +--
+ test/builtins/crypto-import-key.js            | 31 +++++++++++++++++++
+ 2 files changed, 32 insertions(+), 3 deletions(-)
+ create mode 100644 test/builtins/crypto-import-key.js
+
+diff --git a/crates/spidermonkey-embedding-splicer/src/stub_wasi.rs b/crates/spidermonkey-embedding-splicer/src/stub_wasi.rs
+index 9dcb7bf..f48830b 100644
+--- a/crates/spidermonkey-embedding-splicer/src/stub_wasi.rs
++++ b/crates/spidermonkey-embedding-splicer/src/stub_wasi.rs
+@@ -136,12 +136,11 @@ pub fn stub_wasi(
+ 
+     let mut module = Module::parse(wasm.as_slice(), false, false).unwrap();
+ 
+-    stub_preview1(&mut module)?;
+-
+     stub_filesystem(&mut module, &target_world_imports)?;
+     stub_cli(&mut module, &target_world_imports)?;
+ 
+     if !features.contains(&Feature::Random) {
++        stub_preview1(&mut module)?;
+         stub_random(&mut module)?;
+     }
+ 
+@@ -208,7 +207,6 @@ fn target_world_requires_io(target_world_imports: &HashSet<String>) -> bool {
+ 
+ const PREVIEW1: &str = "wasi_snapshot_preview1";
+ fn stub_preview1(module: &mut Module) -> Result<()> {
+-    // random comes from prevew2 only in StarlingMonkey
+     stub_import(module, PREVIEW1, "random_get", unreachable_stub)?;
+     Ok(())
+ }
+diff --git a/test/builtins/crypto-import-key.js b/test/builtins/crypto-import-key.js
+new file mode 100644
+index 0000000..250c35c
+--- /dev/null
++++ b/test/builtins/crypto-import-key.js
+@@ -0,0 +1,31 @@
++import { strictEqual } from 'node:assert';
++import { generateKeyPairSync, sign } from 'node:crypto';
++
++const data = 'componentize-js';
++const rsa = generateKeyPairSync('rsa', { modulusLength: 2048 });
++const ec = generateKeyPairSync('ec', { namedCurve: 'P-256' });
++const rsaSig = sign('sha256', Buffer.from(data), rsa.privateKey);
++const ecSig = sign('sha256', Buffer.from(data), {
++  key: ec.privateKey,
++  dsaEncoding: 'ieee-p1363',
++});
++
++export const source = `
++  const b64 = (s) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
++  const data = new TextEncoder().encode('${data}');
++  async function verify(jwk, sig, importAlg, verifyAlg) {
++    const key = await crypto.subtle.importKey('jwk', jwk, importAlg, false, ['verify']);
++    return key.type + ' ' + await crypto.subtle.verify(verifyAlg, key, b64(sig), data);
++  }
++  export async function run () {
++    const rsaAlg = { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' };
++    console.log(await verify(${JSON.stringify(rsa.publicKey.export({ format: 'jwk' }))}, '${rsaSig.toString('base64')}', rsaAlg, rsaAlg));
++    console.log(await verify(${JSON.stringify(ec.publicKey.export({ format: 'jwk' }))}, '${ecSig.toString('base64')}', { name: 'ECDSA', namedCurve: 'P-256' }, { name: 'ECDSA', hash: 'SHA-256' }));
++  }
++`;
++
++export async function test(run) {
++  const { stdout, stderr } = await run();
++  strictEqual(stderr, '');
++  strictEqual(stdout, 'public true\npublic true\n');
++}
+-- 
+2.50.1
+
